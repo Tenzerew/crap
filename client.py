@@ -82,7 +82,6 @@ class App(CTk.CTk):
 
         self.SettingsFrame.pack(fill="both", expand=False)
 
-        self.root.mainloop()
 
         self.shutdown = False
         self.join = False 
@@ -140,7 +139,7 @@ class App(CTk.CTk):
 
             while self.shutdown == False:
 
-                if self.join == True:
+                if self.join == False:
                     
                     self.client.sendto(("[" + self.Username +
                                             "] => join chat ").encode("utf-8"),
@@ -149,14 +148,14 @@ class App(CTk.CTk):
 
                 else:
                     try:
-                        while True:
+                        
                             if self.message != "":
                                 self.client.sendto(("[" + self.Username + "] :: " +
                                                 self.message).encode("utf-8"),
                                                self.server)
-                        
+
                                 time.sleep(0.2)
-                        
+                            pass
 
                     except:
                         self.client.sendto("[" + self.Username +
@@ -166,11 +165,12 @@ class App(CTk.CTk):
             self.RcVng.join()
             self.client.close()
 
-    
+    def run(self):
+        self.root.mainloop()
         
 
 
 #192.168.1.8
 #7000
 
-App()
+App().run()
